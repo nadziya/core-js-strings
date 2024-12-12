@@ -19,8 +19,14 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  let result = 0;
+  if (value === '' || value === null || value === undefined) {
+    result = 0;
+  } else {
+    result = value.length;
+  }
+  return result;
 }
 
 /**
@@ -37,8 +43,19 @@ function getStringLength(/* value */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+
+function isString(value) {
+  let result = true;
+  if (typeof value !== 'string' && typeof value !== 'object') {
+    result = false;
+  } /* else if (typeof value === 'object') {
+
+  //   if (typeof eval(value.valueOf()) !== 'string') {
+  //     result = false;
+  //   }
+  // } */
+
+  return result;
 }
 
 /**
@@ -53,8 +70,8 @@ function isString(/* value */) {
  *   concatenateStrings('aa', '') => 'aa'.
  *   concatenateStrings('', 'bb') => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1.concat('', value2);
 }
 
 /**
@@ -68,8 +85,12 @@ function concatenateStrings(/* value1, value2 */) {
  *   getFirstChar('cat') => 'c'
  *   getFirstChar('') => ''
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  let result = value.charAt(0);
+  if (value === '') {
+    result = '';
+  }
+  return result;
 }
 
 /**
@@ -83,8 +104,10 @@ function getFirstChar(/* value */) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  let result = value.trim();
+  result = result.toWellformed();
+  return result;
 }
 
 /**
