@@ -45,16 +45,12 @@ function getStringLength(value) {
  */
 
 function isString(value) {
-  let result = true;
-  if (typeof value !== 'string' && typeof value !== 'object') {
-    result = false;
-  } /* else if (typeof value === 'object') {
-
-  //   if (typeof eval(value.valueOf()) !== 'string') {
-  //     result = false;
-  //   }
-  // } */
-
+  let result = false;
+  if (typeof value === 'string') {
+    result = true;
+  } else if (value instanceof String === true) {
+    result = true;
+  }
   return result;
 }
 
@@ -247,8 +243,8 @@ function startsWith(str, substr) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
@@ -447,8 +443,17 @@ function reverseWords(str) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  let result = '';
+  const newSmallStr = str.toLowerCase();
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === newSmallStr[i]) {
+      result = `${result}${str[i].toUpperCase()}`;
+    } else {
+      result = `${result}${str[i].toLowerCase()}`;
+    }
+  }
+  return result;
 }
 
 /**
@@ -464,8 +469,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -478,8 +483,9 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const result = value.match(/(\w+) (\w+)/);
+  return result[0];
 }
 
 /**
@@ -493,8 +499,11 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  let result = str.replace('<', '');
+  result = result.replace('>', '');
+  result = result.trim();
+  return result;
 }
 
 /**
@@ -512,8 +521,16 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  const regMail = /\w+\.\w+@\w+\.\w+/g;
+  const emails = str.matchAll(regMail);
+  const massiv = Array.from(emails);
+  const result = [];
+  for (let i = 0; i < massiv.length; i += 1) {
+    const j = 0;
+    result.push(massiv[i][j]);
+  }
+  return result;
 }
 
 /**
@@ -532,8 +549,23 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const usualAlph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const ROT13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === ' ') {
+      result += ' ';
+    } else if (str[i] === '?') {
+      result += '?';
+    } else if (str[i] === '!') {
+      result += '!';
+    } else {
+      const ind = usualAlph.indexOf(str[[i]]);
+      result += ROT13[ind];
+    }
+  }
+  return result;
 }
 
 /**
@@ -560,8 +592,64 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardPool = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+
+  const result = cardPool.indexOf(value);
+  return result;
 }
 
 module.exports = {
